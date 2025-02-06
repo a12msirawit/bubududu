@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Time Spent Together</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
         body {
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Poppins', sans-serif;
             background: linear-gradient(120deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
@@ -34,8 +34,8 @@
 
         h1 {
             color: #ff6b81;
-            font-size: 2em;
-            font-family: 'Dancing Script', cursive;
+            font-size: 2.2em;
+            font-family: 'Poppins', sans-serif;
             animation: fadeIn 2s ease-in-out;
         }
 
@@ -60,7 +60,7 @@
             font-weight: bold;
             line-height: 1.6;
             animation: glow 1.5s infinite alternate;
-            margin-top: 10px; /* เพิ่มระยะห่างจากเลข */
+            margin-top: 10px;
         }
 
         @keyframes glow {
@@ -69,7 +69,7 @@
         }
 
         .footer {
-            margin-top: 40px; /* เลื่อนให้ห่างจากเวลา */
+            margin-top: 40px;
             font-size: 1.3em;
             color: #ff6b81;
             font-style: italic;
@@ -105,10 +105,10 @@
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Poppins', sans-serif;
             text-align: center;
-            margin-top: 30px; /* เพิ่มระยะห่างจากเวลา */
-            animation: moveUpDown 1s infinite alternate; /* เคลื่อนไหว */
+            margin-top: 30px;
+            animation: moveUpDown 1s infinite alternate;
         }
 
         .footer-button:hover {
@@ -140,7 +140,7 @@
         }
     </style>
     <script>
-        let clickCount = 0; // Variable to track number of clicks
+        let clickCount = localStorage.getItem('clickCount') || 0; // Use localStorage to persist click count
 
         function calculateTime() {
             var startDate = new Date(2024, 8, 18, 0, 20, 0, 0);
@@ -189,7 +189,7 @@
         function createFlyingHearts() {
             const heart = document.createElement("div");
             heart.classList.add("heart-fly");
-            heart.innerHTML = "💖";
+            heart.innerHTML = "😘";
             document.body.appendChild(heart);
 
             heart.style.left = Math.random() * 100 + "vw";
@@ -201,12 +201,18 @@
 
         function handleClick() {
             clickCount++;  // Increment click count
+            localStorage.setItem('clickCount', clickCount); // Store the updated count in localStorage
             document.getElementById("click-count").innerText = "Click count: " + clickCount; // Update the count display
 
             for (let i = 0; i < 5; i++) {
                 createFlyingHearts(); // Generate hearts flying out on click
             }
         }
+
+        // Display the initial click count from localStorage
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("click-count").innerText = "Click count: " + clickCount;
+        });
     </script>
 </head>
 <body>
@@ -214,7 +220,7 @@
         <h1><span id="typing-text">The Time Spent Together</span></h1>
         <h1> 💗18/09/2567 00:20 💗</h1>
         <div id="time"></div>
-        <div id="click-count">Click count: 0</div> <!-- Display click count -->
+        <div id="click-count">Click count: 0</div>
         <button class="footer-button" onclick="handleClick()">💖 Our Time 💖</button>
     </div>
 </body>

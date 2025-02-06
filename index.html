@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Time Spent Together</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Sacramento&display=swap');
-
         body {
-            font-family: 'Sacramento', cursive;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(120deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
@@ -35,7 +33,7 @@
         h1 {
             color: #ff6b81;
             font-size: 2em;
-            font-family: 'Pacifico', cursive;
+            font-family: 'Arial', sans-serif;
             animation: fadeIn 2s ease-in-out;
         }
 
@@ -60,6 +58,7 @@
             font-weight: bold;
             line-height: 1.6;
             animation: glow 1.5s infinite alternate;
+            margin-top: 10px; /* เพิ่มระยะห่างจากเลข */
         }
 
         @keyframes glow {
@@ -147,7 +146,7 @@
     <div class="container">
         <h1><span id="typing-text">The Time Spent Together</span></h1>
         <h1> 💗18/09/2567 00:20 💗</h1>
-        <p id="time"></p>
+        <div id="time"></div>
         <div class="footer">💖 Our Time 💖</div>
     </div>
 </body>

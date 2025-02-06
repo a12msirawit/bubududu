@@ -69,7 +69,7 @@
         }
 
         .footer {
-            margin-top: 20px;
+            margin-top: 40px; /* เลื่อนให้ห่างจากเวลา */
             font-size: 1.3em;
             color: #ff6b81;
             font-style: italic;
@@ -107,10 +107,18 @@
             transition: all 0.3s ease;
             font-family: 'Dancing Script', cursive;
             text-align: center;
+            margin-top: 30px; /* เพิ่มระยะห่างจากเวลา */
+            animation: moveUpDown 1s infinite alternate; /* เคลื่อนไหว */
         }
 
         .footer-button:hover {
             background-color: #ff416c;
+        }
+
+        @keyframes moveUpDown {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
 
         .heart-fly {
@@ -132,6 +140,8 @@
         }
     </style>
     <script>
+        let clickCount = 0; // Variable to track number of clicks
+
         function calculateTime() {
             var startDate = new Date(2024, 8, 18, 0, 20, 0, 0);
             var currentDate = new Date();
@@ -190,6 +200,9 @@
         setInterval(createAnimal, 2000);
 
         function handleClick() {
+            clickCount++;  // Increment click count
+            document.getElementById("click-count").innerText = "Click count: " + clickCount; // Update the count display
+
             for (let i = 0; i < 5; i++) {
                 createFlyingHearts(); // Generate hearts flying out on click
             }
@@ -201,6 +214,7 @@
         <h1><span id="typing-text">The Time Spent Together</span></h1>
         <h1> 💗18/09/2567 00:20 💗</h1>
         <div id="time"></div>
+        <div id="click-count">Click count: 0</div> <!-- Display click count -->
         <button class="footer-button" onclick="handleClick()">💖 Our Time 💖</button>
     </div>
 </body>

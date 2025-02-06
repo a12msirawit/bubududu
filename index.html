@@ -71,11 +71,16 @@
             font-weight: bold;
             line-height: 1.6;
             animation: glow 1.5s infinite alternate;
+            margin-top: 20px; /* เพิ่มระยะห่างจากปุ่ม */
         }
 
         @keyframes glow {
             from { box-shadow: 0 0 15px #ff416c; }
             to { box-shadow: 0 0 25px #ff4b2b; }
+        }
+
+        #click-count {
+            margin-top: 10px; /* เพิ่มระยะห่างจากตัวบอกเวลา */
         }
 
     </style>
@@ -84,8 +89,8 @@
     <div class="container">
         <h1>The Time Spent Together</h1>
         <button class="button" onclick="handleClick()">Our Time</button>
-        <p id="click-count">Click count: 0</p>
         <div id="time"></div>
+        <p id="click-count">Click count: 0</p>
     </div>
 
     <script>

@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Time Spent Together</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(120deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
@@ -17,211 +15,104 @@
             margin: 0;
             color: #fff;
             overflow: hidden;
+            transition: background 1s ease-in-out; /* เพิ่มการเปลี่ยนพื้นหลัง */
         }
 
         .container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.15);
             padding: 30px 50px;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            max-width: 450px;
-            width: 100%;
-            animation: fadeIn 2s ease-in-out;
         }
 
-        h1 {
-            color: #ff6b81;
-            font-size: 2.2em;
-            font-family: 'Poppins', sans-serif;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        #typing-text {
-            display: inline-block;
-            border-right: 3px solid #ff6b81;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3s steps(40, end), blink 0.8s infinite;
-        }
-
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink { 50% { border-color: transparent } }
-
-        #time {
-            font-size: 1.5em;
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            padding: 20px;
+        .button {
+            padding: 10px 30px;
+            font-size: 1.2em;
+            background-color: #ff4b2b;
+            color: white;
+            border: none;
             border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-            font-weight: bold;
-            line-height: 1.6;
-            animation: glow 1.5s infinite alternate;
-            margin-top: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        @keyframes glow {
-            from { box-shadow: 0 0 15px #ff416c; }
-            to { box-shadow: 0 0 25px #ff4b2b; }
+        .button:hover {
+            transform: scale(1.1);
         }
 
-        .footer {
-            margin-top: 40px;
-            font-size: 1.3em;
-            color: #ff6b81;
-            font-style: italic;
-            animation: float 3s infinite alternate;
-        }
-
-        @keyframes float { from { transform: translateY(0px); } to { transform: translateY(-10px); } }
-
-        .heart, .animal {
+        .flying-heart {
             position: absolute;
-            font-size: 20px;
-            animation: fly 5s linear infinite;
-            opacity: 0.7;
-        }
-
-        .animal {
-            font-size: 25px;
-            color: #ffcc00;
+            font-size: 24px;
+            animation: fly 3s linear infinite;
+            opacity: 0.8;
         }
 
         @keyframes fly {
-            from { transform: translateY(100vh) scale(0.8); opacity: 1; }
-            to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-
-        /* Style for the button */
-        .footer-button {
-            background-color: #ff6b81;
-            color: white;
-            font-size: 1.3em;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            margin-top: 30px;
-            animation: moveUpDown 1s infinite alternate;
-        }
-
-        .footer-button:hover {
-            background-color: #ff416c;
-        }
-
-        @keyframes moveUpDown {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-
-        .heart-fly {
-            position: absolute;
-            font-size: 30px;
-            animation: heartFly 1.5s forwards;
-            opacity: 1;
-        }
-
-        @keyframes heartFly {
-            from {
-                transform: translateY(0) scale(1);
+            0% {
+                transform: translateY(100vh) scale(0.5);
                 opacity: 1;
             }
-            to {
-                transform: translateY(-100vh) scale(2);
+            100% {
+                transform: translateY(-100vh) scale(1.5);
                 opacity: 0;
             }
         }
     </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Time Spent Together</h1>
+        <button class="button" onclick="handleClick()">Our Time</button>
+        <p id="click-count">Click count: 0</p>
+    </div>
+
     <script>
-        let clickCount = localStorage.getItem('clickCount') || 0; // Use localStorage to persist click count
+        let clickCount = localStorage.getItem('clickCount') || 0;
+        document.getElementById("click-count").innerText = "Click count: " + clickCount;
 
-        function calculateTime() {
-            var startDate = new Date(2024, 8, 18, 0, 20, 0, 0);
-            var currentDate = new Date();
-            var timeDifference = currentDate - startDate;
-
-            var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-            document.getElementById("time").innerHTML = days + " days : " + hours + " hrs : " + minutes + " mins : " + seconds + " secs";
-        }
-
-        setInterval(calculateTime, 1000);
-
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "💗";
-            document.body.appendChild(heart);
-
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-            heart.style.fontSize = Math.random() * 10 + 15 + "px";
-
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
-        }
-
-        function createAnimal() {
-            const animal = document.createElement("div");
-            animal.classList.add("animal");
-            animal.innerHTML = "🐶";
-            document.body.appendChild(animal);
-
-            animal.style.left = Math.random() * 100 + "vw";
-            animal.style.animationDuration = Math.random() * 4 + 3 + "s";
-
-            setTimeout(() => {
-                animal.remove();
-            }, 5000);
+        function changeBackground() {
+            const backgrounds = [
+                "linear-gradient(120deg, #ff9a9e, #fad0c4)", // สีชมพูอ่อน
+                "linear-gradient(120deg, #ff416c, #ff4b2b)", // สีแดง
+                "linear-gradient(120deg, #43e97b, #38f9d7)", // สีเขียวสดใส
+                "linear-gradient(120deg, #ff7e5f, #feb47b)"  // สีส้ม
+            ];
+            const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+            document.body.style.background = randomBackground;
         }
 
         function createFlyingHearts() {
             const heart = document.createElement("div");
-            heart.classList.add("heart-fly");
-            heart.innerHTML = "😘";
+            heart.classList.add("flying-heart");
+            heart.innerHTML = "💖";
             document.body.appendChild(heart);
 
+            // สุ่มตำแหน่งและเวลาการเคลื่อนไหว
             heart.style.left = Math.random() * 100 + "vw";
-            heart.style.top = "50vh";  // Starting position
-        }
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
 
-        setInterval(createHeart, 500);
-        setInterval(createAnimal, 2000);
+            // ลบหัวใจเมื่อแอนิเมชันเสร็จ
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
 
         function handleClick() {
-            clickCount++;  // Increment click count
-            localStorage.setItem('clickCount', clickCount); // Store the updated count in localStorage
-            document.getElementById("click-count").innerText = "Click count: " + clickCount; // Update the count display
+            clickCount++;  // เพิ่มจำนวนคลิก
+            localStorage.setItem('clickCount', clickCount); // เก็บจำนวนคลิก
+            document.getElementById("click-count").innerText = "Click count: " + clickCount; // อัปเดตการแสดงผล
 
+            // เปลี่ยนพื้นหลังทุกครั้งที่คลิก
+            changeBackground();
+
+            // สร้างหัวใจบินขึ้น
             for (let i = 0; i < 5; i++) {
-                createFlyingHearts(); // Generate hearts flying out on click
+                createFlyingHearts();
             }
         }
-
-        // Display the initial click count from localStorage
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("click-count").innerText = "Click count: " + clickCount;
-        });
     </script>
-</head>
-<body>
-    <div class="container">
-        <h1><span id="typing-text">The Time Spent Together</span></h1>
-        <h1> 💗18/09/2567 00:20 💗</h1>
-        <div id="time"></div>
-        <div id="click-count">Click count: 0</div>
-        <button class="footer-button" onclick="handleClick()">💖 Our Time 💖</button>
-    </div>
 </body>
 </html>

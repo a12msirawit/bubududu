@@ -5,82 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Time Spent Together</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Sriracha&display=swap');
+
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f8fa;
+            font-family: 'Sriracha', cursive;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            color: #333;
+            color: #fff;
+            overflow: hidden;
         }
+
         .container {
             text-align: center;
-            background-color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
             padding: 30px 50px;
             border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            max-width: 450px;
             width: 100%;
+            animation: fadeIn 2s ease-in-out;
         }
+
         h1 {
-            color: #FF69B4; /* สีชมพูอ่อน */
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            font-weight: 600;
+            color: #fff;
+            font-size: 2em;
+            font-family: 'Pacifico', cursive;
+            animation: fadeIn 2s ease-in-out;
         }
+
+        #typing-text {
+            display: inline-block;
+            border-right: 3px solid #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40, end), blink 0.8s infinite;
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { 50% { border-color: transparent } }
+
         #time {
-            font-size: 1.4em;
-            color: #4A90E2;
-            background-color: #FFEBFF;
+            font-size: 1.5em;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
             padding: 20px;
             border-radius: 10px;
             display: inline-block;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            font-weight: 500;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
             line-height: 1.6;
+            animation: glow 1.5s infinite alternate;
         }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 15px #ff416c; }
+            to { box-shadow: 0 0 25px #ff4b2b; }
+        }
+
         .footer {
             margin-top: 20px;
-            font-size: 1em;
-            color: #888;
+            font-size: 1.3em;
+            color: #fff;
             font-style: italic;
+            animation: float 3s infinite alternate;
+        }
+
+        @keyframes float { from { transform: translateY(0px); } to { transform: translateY(-10px); } }
+
+        .heart, .animal {
+            position: absolute;
+            font-size: 20px;
+            animation: fly 5s linear infinite;
+            opacity: 0.7;
+        }
+
+        .animal {
+            font-size: 25px;
+            color: #ffcc00;
+        }
+
+        @keyframes fly {
+            from { transform: translateY(100vh) scale(0.8); opacity: 1; }
+            to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
     </style>
     <script>
         function calculateTime() {
-            // กำหนดวันที่เริ่มต้น (18 กันยายน 2567 เวลา 00:20)
-            var startDate = new Date(2024, 8, 18, 0, 20, 0, 0); // เดือน 8 คือกันยายน (เดือนใน JavaScript เริ่มจาก 0)
-
-            // รับวันที่ปัจจุบัน
+            var startDate = new Date(2024, 8, 18, 0, 20, 0, 0);
             var currentDate = new Date();
-
-            // คำนวณระยะเวลา
             var timeDifference = currentDate - startDate;
 
-            // คำนวณจำนวนวัน
             var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-            // คำนวณจำนวนชั่วโมง, นาที, วินาที
             var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-            // แสดงผล
-            document.getElementById("time").innerHTML = days + " days: " + hours + " hours: " + minutes + " mins: " + seconds + " secs";
+            document.getElementById("time").innerHTML = days + " days : " + hours + " hrs : " + minutes + " mins : " + seconds + " secs";
         }
 
-        // เรียกใช้ฟังก์ชันทุกๆ 1 วินาที
         setInterval(calculateTime, 1000);
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "💗";
+            document.body.appendChild(heart);
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            heart.style.fontSize = Math.random() * 10 + 15 + "px";
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        function createAnimal() {
+            const animal = document.createElement("div");
+            animal.classList.add("animal");
+            animal.innerHTML = "🐶";
+            document.body.appendChild(animal);
+
+            animal.style.left = Math.random() * 100 + "vw";
+            animal.style.animationDuration = Math.random() * 4 + 3 + "s";
+
+            setTimeout(() => {
+                animal.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 500);
+        setInterval(createAnimal, 2000);
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>The Time Spent Together</h1>
-        <h1> 💗18/09/2004 00:20 💗</h1>
+        <h1><span id="typing-text">The Time Spent Together</span></h1>
+        <h1> 💗18/09/2567 00:20 💗</h1>
         <p id="time"></p>
-        <div class="footer"> 💗 💗อยู่กันไปนานๆนะแฟน 💗 💗</div>
+        <div class="footer">💖 Our Time 💖</div>
     </div>
 </body>
 </html>

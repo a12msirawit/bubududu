@@ -94,6 +94,42 @@
             from { transform: translateY(100vh) scale(0.8); opacity: 1; }
             to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
+
+        /* Style for the button */
+        .footer-button {
+            background-color: #ff6b81;
+            color: white;
+            font-size: 1.3em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+        }
+
+        .footer-button:hover {
+            background-color: #ff416c;
+        }
+
+        .heart-fly {
+            position: absolute;
+            font-size: 30px;
+            animation: heartFly 1.5s forwards;
+            opacity: 1;
+        }
+
+        @keyframes heartFly {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh) scale(2);
+                opacity: 0;
+            }
+        }
     </style>
     <script>
         function calculateTime() {
@@ -140,16 +176,32 @@
             }, 5000);
         }
 
+        function createFlyingHearts() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart-fly");
+            heart.innerHTML = "💖";
+            document.body.appendChild(heart);
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "50vh";  // Starting position
+        }
+
         setInterval(createHeart, 500);
         setInterval(createAnimal, 2000);
+
+        function handleClick() {
+            for (let i = 0; i < 5; i++) {
+                createFlyingHearts(); // Generate hearts flying out on click
+            }
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <h1><span id="typing-text">The Time Spent Together</span></h1>
-        <h1> 💗18/09/2567 00:20💗</h1>
+        <h1> 💗18/09/2567 00:20 💗</h1>
         <div id="time"></div>
-        <div class="footer">💖 Our Time 💖</div>
+        <button class="footer-button" onclick="handleClick()">💖 Our Time 💖</button>
     </div>
 </body>
 </html>
